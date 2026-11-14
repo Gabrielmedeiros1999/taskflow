@@ -1,5 +1,11 @@
 
 <script setup>
+import Sidebar from './components/Sidebar.vue';
+import Header from './components/Header.vue';
+import StatCard from './components/StatCard.vue';
+import TaskList from './components/TaskList.vue';
+
+// Dados das tarefas
 const tarefas = [
   {
     id: 1,
@@ -31,11 +37,32 @@ const tarefas = [
   }
 ];
 
+// Dados das estatísticas
 const estatisticas = [
-  { id: 1, titulo: "Total de tarefas", valor: 12, icone: "▤" },
-  { id: 2, titulo: "Pendentes", valor: 5, icone: "◷" },
-  { id: 3, titulo: "Concluídas", valor: 6, icone: "✓" },
-  { id: 4, titulo: "Atrasadas", valor: 1, icone: "!" }
+  {
+    id: 1,
+    titulo: "Total de tarefas",
+    valor: 12,
+    icone: "▤"
+  },
+  {
+    id: 2,
+    titulo: "Pendentes",
+    valor: 5,
+    icone: "◷"
+  },
+  {
+    id: 3,
+    titulo: "Concluídas",
+    valor: 6,
+    icone: "✓"
+  },
+  {
+    id: 4,
+    titulo: "Atrasadas",
+    valor: 1,
+    icone: "!"
+  }
 ];
 </script>
 
@@ -43,140 +70,48 @@ const estatisticas = [
   <div class="app-container">
 
     <!-- Menu lateral -->
-    <aside class="sidebar">
-      <div class="logo">
-        <span class="logo-icon">✓</span>
-        <h2>TaskFlow</h2>
-      </div>
-
-      <div class="menu-section">
-        <span class="menu-label">MENU PRINCIPAL</span>
-
-        <nav class="menu">
-          <a href="#" class="menu-item active">
-            <span>▦</span>
-            Dashboard
-          </a>
-
-          <a href="#" class="menu-item">
-            <span>☷</span>
-            Minhas tarefas
-          </a>
-
-          <a href="#" class="menu-item">
-            <span>▤</span>
-            Projetos
-          </a>
-
-          <a href="#" class="menu-item">
-            <span>▦</span>
-            Calendário
-          </a>
-        </nav>
-      </div>
-
-      <div class="sidebar-footer">
-        <div class="avatar">GM</div>
-        <div>
-          <strong>Gabriel Medeiros</strong>
-          <span>Minha conta</span>
-        </div>
-      </div>
-    </aside>
+    <Sidebar />
 
     <!-- Conteúdo principal -->
     <main class="main-content">
 
-      <header class="topbar">
-        <div>
-          <span class="breadcrumb">Workspace / Dashboard</span>
-          <h1>Dashboard</h1>
-        </div>
+      <!-- Cabeçalho -->
+      <Header />
 
-        <div class="topbar-right">
-          <span class="date-label">Meu espaço de trabalho</span>
-          <div class="avatar">GM</div>
-        </div>
-      </header>
-
+      <!-- Boas-vindas -->
       <section class="welcome">
+
         <div>
           <h2>Olá, Gabriel! 👋</h2>
-          <p>Aqui está um resumo das suas atividades.</p>
+
+          <p>
+            Aqui está um resumo das suas atividades.
+          </p>
         </div>
 
-        <span class="welcome-date">Visão geral</span>
+        <span class="welcome-date">
+          Visão geral
+        </span>
+
       </section>
 
-      <!-- Cards de estatísticas -->
+      <!-- Estatísticas -->
       <section class="stats-grid">
-        <article
+
+        <StatCard
           v-for="item in estatisticas"
           :key="item.id"
-          class="stat-card"
-        >
-          <div class="stat-header">
-            <span>{{ item.titulo }}</span>
-            <span class="stat-icon">{{ item.icone }}</span>
-          </div>
+          :titulo="item.titulo"
+          :valor="item.valor"
+          :icone="item.icone"
+        />
 
-          <strong class="stat-value">{{ item.valor }}</strong>
-        </article>
       </section>
 
       <!-- Lista de tarefas -->
-      <section class="tasks-section">
-
-        <div class="section-header">
-          <div>
-            <h2>Tarefas recentes</h2>
-            <p>Acompanhe suas atividades.</p>
-          </div>
-
-          <span class="task-count">
-            {{ tarefas.length }} tarefas
-          </span>
-        </div>
-
-        <div class="task-list">
-
-          <article
-            v-for="tarefa in tarefas"
-            :key="tarefa.id"
-            class="task-card"
-          >
-            <div class="task-info">
-              <div class="task-title">
-                <span
-                  class="status-dot"
-                  :class="tarefa.status.toLowerCase().replace(' ', '-')"
-                ></span>
-
-                <strong>{{ tarefa.titulo }}</strong>
-              </div>
-
-              <span class="task-project">
-                {{ tarefa.projeto }}
-              </span>
-            </div>
-
-            <div class="task-details">
-              <span
-                class="priority"
-                :class="tarefa.prioridade.toLowerCase()"
-              >
-                {{ tarefa.prioridade }}
-              </span>
-
-              <span class="task-status">
-                {{ tarefa.status }}
-              </span>
-            </div>
-          </article>
-
-        </div>
-      </section>
+      <TaskList :tarefas="tarefas" />
 
     </main>
+
   </div>
 </template>
