@@ -362,6 +362,151 @@ body {
   text-align: right;
 }
 
+
+/* Formulário de tarefas */
+
+.form-section {
+  margin-top: 38px;
+  margin-bottom: 35px;
+}
+
+.task-form {
+  display: grid;
+  grid-template-columns: 2fr 1.3fr 1fr auto;
+  align-items: end;
+  gap: 14px;
+  background: #191a20;
+  border: 1px solid #292a31;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.form-field label {
+  color: #b9bac4;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.form-field input,
+.form-field select {
+  width: 100%;
+  height: 40px;
+  background: #101114;
+  border: 1px solid #353640;
+  border-radius: 7px;
+  padding: 0 11px;
+  color: #e5e7eb;
+  font-family: inherit;
+  font-size: 11px;
+  outline: none;
+}
+
+.form-field input:focus,
+.form-field select:focus {
+  border-color: #8b70f5;
+}
+
+.form-field input::placeholder {
+  color: #777984;
+}
+
+.add-button {
+  height: 40px;
+  padding: 0 15px;
+  background: #7658ed;
+  border: none;
+  border-radius: 7px;
+  color: white;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.add-button:hover {
+  background: #896ff5;
+}
+
+/* Botões das tarefas */
+
+.action-button {
+  border: none;
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-family: inherit;
+  font-size: 10px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.complete-button {
+  background: #29243f;
+  color: #b6a7ff;
+}
+
+.complete-button:hover {
+  background: #3b315d;
+}
+
+.delete-button {
+  background: #49252d;
+  color: #ff8998;
+}
+
+.delete-button:hover {
+  background: #63303b;
+}
+
+.completed-title {
+  text-decoration: line-through;
+  color: #858691 !important;
+}
+
+.empty-message {
+  padding: 35px 15px;
+  text-align: center;
+  color: #858691;
+  font-size: 12px;
+  background: #191a20;
+  border: 1px dashed #353640;
+  border-radius: 10px;
+}
+
+/* Responsividade do formulário */
+
+@media (max-width: 1000px) {
+  .task-form {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .add-button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 650px) {
+  .task-form {
+    grid-template-columns: 1fr;
+  }
+
+  .task-details {
+    flex-wrap: wrap;
+    gap: 9px;
+  }
+
+  .task-status {
+    text-align: left;
+  }
+}
+
+
 /* Responsividade */
 
 @media (max-width: 1000px) {

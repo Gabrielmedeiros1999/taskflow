@@ -8,6 +8,11 @@ defineProps({
     required: true
   }
 });
+
+const emit = defineEmits([
+  'delete-task',
+  'toggle-task'
+]);
 </script>
 
 <template>
@@ -16,7 +21,7 @@ defineProps({
     <div class="section-header">
 
       <div>
-        <h2>Tarefas recentes</h2>
+        <h2>Minhas atividades</h2>
         <p>Acompanhe suas atividades.</p>
       </div>
 
@@ -32,7 +37,13 @@ defineProps({
         v-for="tarefa in tarefas"
         :key="tarefa.id"
         :tarefa="tarefa"
+        @delete-task="emit('delete-task', $event)"
+        @toggle-task="emit('toggle-task', $event)"
       />
+
+      <p v-if="tarefas.length === 0" class="empty-message">
+        Nenhuma tarefa cadastrada. Que tal adicionar uma?
+      </p>
 
     </div>
 

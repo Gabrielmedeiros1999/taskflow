@@ -6,6 +6,12 @@ defineProps({
     required: true
   }
 });
+
+// Eventos enviados ao componente pai
+const emit = defineEmits([
+  'toggle-task',
+  'delete-task'
+]);
 </script>
 
 <template>
@@ -20,7 +26,11 @@ defineProps({
           :class="tarefa.status.toLowerCase().replace(' ', '-')"
         ></span>
 
-        <strong>{{ tarefa.titulo }}</strong>
+        <strong
+          :class="{ 'completed-title': tarefa.status === 'Concluída' }"
+        >
+          {{ tarefa.titulo }}
+        </strong>
 
       </div>
 
@@ -42,6 +52,20 @@ defineProps({
       <span class="task-status">
         {{ tarefa.status }}
       </span>
+
+      <button
+        class="action-button complete-button"
+        @click="emit('toggle-task', tarefa.id)"
+      >
+        {{ tarefa.status === 'Concluída' ? 'Reabrir' : 'Concluir' }}
+      </button>
+
+      <button
+        class="action-button delete-button"
+        @click="emit('delete-task', tarefa.id)"
+      >
+        Excluir
+      </button>
 
     </div>
 

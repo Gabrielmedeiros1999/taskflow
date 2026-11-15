@@ -1,12 +1,14 @@
 
 <script setup>
+import { ref, computed } from 'vue';
+
 import Sidebar from './components/Sidebar.vue';
 import Header from './components/Header.vue';
 import StatCard from './components/StatCard.vue';
 import TaskList from './components/TaskList.vue';
 
-// Dados das tarefas
-const tarefas = [
+// Lista reativa de tarefas
+const tarefas = ref([
   {
     id: 1,
     titulo: "Estudar fundamentos do Vue.js",
@@ -35,50 +37,109 @@ const tarefas = [
     prioridade: "Alta",
     status: "Pendente"
   }
-];
+]);
 
-// Dados das estatísticas
-const estatisticas = [
-  {
-    id: 1,
-    titulo: "Total de tarefas",
-    valor: 12,
-    icone: "▤"
-  },
-  {
-    id: 2,
-    titulo: "Pendentes",
-    valor: 5,
-    icone: "◷"
-  },
-  {
-    id: 3,
-    titulo: "Concluídas",
-    valor: 6,
-    icone: "✓"
-  },
-  {
-    id: 4,
-    titulo: "Atrasadas",
-    valor: 1,
-    icone: "!"
+// Dados do formulário
+const novoTitulo = ref('');
+const novoProjeto = ref('');
+const novaPrioridade = ref('Média');
+
+// Cadastrar tarefa
+function adicionarTarefa() {
+
+  if (!novoTitulo.value.trim()) {
+    return;
   }
-];
+
+  const novaTarefa = {
+    id: Date.now(),
+    titulo: novoTitulo.value.trim(),
+    projeto: novoProjeto.value.trim() || 'Geral',
+    prioridade: novaPrioridade.value,
+    status: 'Pendente'
+  };
+
+  tarefas.value.unshift(novaTarefa);
+
+  // Limpar formulário
+  novoTitulo.value = '';
+  novoProjeto.value = '';
+  novaPrioridade.value = 'Média';
+}
+
+// Excluir tarefa
+function excluirTarefa(id) {
+  tarefas.value = tarefas.value.filter(
+    tarefa => tarefa.id !== id
+  );
+}
+
+// Alternar status da tarefa
+function alternarStatus(id) {
+
+  const tarefa = tarefas.value.find(
+    tarefa => tarefa.id === id
+  );
+
+  if (!tarefa) {
+    return;
+  }
+
+  if (tarefa.status === 'Concluída') {
+    tarefa.status = 'Pendente';
+  } else {
+    tarefa.status = 'Concluída';
+  }
+}
+
+// Estatísticas calculadas automaticamente
+const estatisticas = computed(() => {
+
+  return [
+    {
+      id: 1,
+      titulo: 'Total de tarefas',
+      valor: tarefas.value.length,
+      icone: '▤'
+    },
+    {
+      id: 2,
+      titulo: 'Pendentes',
+      valor: tarefas.value.filter(
+        tarefa => tarefa.status === 'Pendente'
+      ).length,
+      icone: '◷'
+    },
+    {
+      id: 3,
+      titulo: 'Concluídas',
+      valor: tarefas.value.filter(
+        tarefa => tarefa.status === 'Concluída'
+      ).length,
+      icone: '✓'
+    },
+    {
+      id: 4,
+      titulo: 'Em andamento',
+      valor: tarefas.value.filter(
+        tarefa => tarefa.status === 'Em andamento'
+      ).length,
+      icone: '!'
+    }
+  ];
+
+});
 </script>
 
 <template>
   <div class="app-container">
 
-    <!-- Menu lateral -->
     <Sidebar />
 
-    <!-- Conteúdo principal -->
     <main class="main-content">
 
-      <!-- Cabeçalho -->
       <Header />
 
-      <!-- Boas-vindas -->
       <section class="welcome">
 
         <div>
@@ -108,8 +169,71 @@ const estatisticas = [
 
       </section>
 
+      <!-- Formulário de cadastro -->
+      <section class="form-section">
+
+        <div class="section-header">
+          <div>
+            <h2>Nova tarefa</h2>
+            <p>Adicione uma atividade ao seu planejamento.</p>
+          </div>
+        </div>
+
+        <form
+          class="task-form"
+          @submit.prevent="adicionarTarefa"
+        >
+
+          <div class="form-field">
+            <label for="titulo">Nome da tarefa</label>
+
+            <input
+              id="titulo"
+              v-model="novoTitulo"
+              type="text"
+              placeholder="Ex: Estudar JavaScript"
+              required
+            />
+          </div>
+
+          <div class="form-field">
+            <label for="projeto">Projeto</label>
+
+            <input
+              id="projeto"
+              v-model="novoProjeto"
+              type="text"
+              placeholder="Ex: Estudos"
+            />
+          </div>
+
+          <div class="form-field">
+            <label for="prioridade">Prioridade</label>
+
+            <select
+              id="prioridade"
+              v-model="novaPrioridade"
+            >
+              <option value="Baixa">Baixa</option>
+              <option value="Média">Média</option>
+              <option value="Alta">Alta</option>
+            </select>
+          </div>
+
+          <button type="submit" class="add-button">
+            + Adicionar tarefa
+          </button>
+
+        </form>
+
+      </section>
+
       <!-- Lista de tarefas -->
-      <TaskList :tarefas="tarefas" />
+      <TaskList
+        :tarefas="tarefas"
+        @delete-task="excluirTarefa"
+        @toggle-task="alternarStatus"
+      />
 
     </main>
 
