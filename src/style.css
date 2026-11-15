@@ -479,6 +479,65 @@ body {
   border-radius: 10px;
 }
 
+
+/* Filtros de tarefas */
+
+.filters-section {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding: 20px;
+  background: #191a20;
+  border: 1px solid #292a32;
+  border-radius: 12px;
+}
+
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filter-field label {
+  color: #b8b8c5;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.filter-field input,
+.filter-field select {
+  width: 100%;
+  min-width: 0;
+  padding: 11px 12px;
+  color: #eeeeF5;
+  background: #101114;
+  border: 1px solid #343540;
+  border-radius: 8px;
+  outline: none;
+}
+
+.filter-field input:focus,
+.filter-field select:focus {
+  border-color: #7658ed;
+}
+
+.filter-field input::placeholder {
+  color: #777783;
+}
+
+@media (max-width: 900px) {
+  .filters-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 550px) {
+  .filters-section {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Responsividade do formulário */
 
 @media (max-width: 1000px) {

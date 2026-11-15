@@ -6,6 +6,7 @@ import Sidebar from './components/Sidebar.vue';
 import Header from './components/Header.vue';
 import StatCard from './components/StatCard.vue';
 import TaskList from './components/TaskList.vue';
+import TaskFilters from './components/TaskFilters.vue';
 
 // Lista reativa de tarefas
 const tarefas = ref([
@@ -43,6 +44,12 @@ const tarefas = ref([
 const novoTitulo = ref('');
 const novoProjeto = ref('');
 const novaPrioridade = ref('Média');
+
+//filtros
+const busca = ref('');
+const filtroStatus = ref('Todos');
+const filtroPrioridade = ref('Todas');
+const ordenacao = ref('padrao');
 
 // Cadastrar tarefa
 function adicionarTarefa() {
@@ -91,6 +98,48 @@ function alternarStatus(id) {
     tarefa.status = 'Concluída';
   }
 }
+
+const tarefasFiltradas = computed(() => {
+  let resultado = tarefas.value;
+
+  // Pesquisa pelo título
+  if (busca.value.trim() !== '') {
+    resultado = resultado.filter(tarefa =>
+      tarefa.titulo
+        .toLowerCase()
+        .includes(busca.value.toLowerCase().trim())
+    );
+  }
+
+  // Filtro por status
+  if (filtroStatus.value !== 'Todos') {
+    resultado = resultado.filter(tarefa =>
+      tarefa.status === filtroStatus.value
+    );
+  }
+
+  // Filtro por prioridade
+  if (filtroPrioridade.value !== 'Todas') {
+    resultado = resultado.filter(tarefa =>
+      tarefa.prioridade === filtroPrioridade.value
+    );
+  }
+
+  // Ordenação por prioridade
+  if (ordenacao.value === 'prioridade') {
+    const pesoPrioridade = {
+      Alta: 3,
+      Média: 2,
+      Baixa: 1
+    };
+
+    resultado = [...resultado].sort((a, b) =>
+      pesoPrioridade[b.prioridade] - pesoPrioridade[a.prioridade]
+    );
+  }
+
+  return resultado;
+});
 
 // Estatísticas calculadas automaticamente
 const estatisticas = computed(() => {
@@ -228,9 +277,17 @@ const estatisticas = computed(() => {
 
       </section>
 
+      <!-- Filtro de tarefas -->
+      <TaskFilters
+        v-model:busca="busca"
+        v-model:status="filtroStatus"
+        v-model:prioridade="filtroPrioridade"
+        v-model:ordenacao="ordenacao"
+      />
+
       <!-- Lista de tarefas -->
       <TaskList
-        :tarefas="tarefas"
+        :tarefas="tarefasFiltradas"
         @delete-task="excluirTarefa"
         @toggle-task="alternarStatus"
       />

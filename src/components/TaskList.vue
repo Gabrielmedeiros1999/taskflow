@@ -42,7 +42,7 @@ const emit = defineEmits([
       />
 
       <p v-if="tarefas.length === 0" class="empty-message">
-        Nenhuma tarefa cadastrada. Que tal adicionar uma?
+        Nenhuma tarefa encontrada com esses filtros.
       </p>
 
     </div>
