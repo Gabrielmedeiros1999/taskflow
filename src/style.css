@@ -479,6 +479,175 @@ body {
   border-radius: 10px;
 }
 
+/* Quadro Kanban */
+
+.kanban-section {
+  margin-top: 24px;
+}
+
+.kanban-header {
+  margin-bottom: 18px;
+}
+
+.kanban-header h2 {
+  color: #eeeeF5;
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+.kanban-header p {
+  color: #858590;
+  font-size: 14px;
+}
+
+.kanban-board {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.kanban-column {
+  min-width: 0;
+  padding: 16px;
+  background: #191a20;
+  border: 1px solid #292a32;
+  border-radius: 12px;
+  min-height: 260px;
+}
+
+.kanban-column-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.kanban-column-header h3 {
+  color: #eeeeF5;
+  font-size: 15px;
+}
+
+.kanban-count {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 7px;
+  color: #c5b8ff;
+  background: #30264f;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.kanban-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.kanban-card {
+  padding: 14px;
+  background: #22232b;
+  border: 1px solid #343540;
+  border-radius: 10px;
+}
+
+
+.kanban-card {
+  cursor: grab;
+}
+
+.kanban-card:active {
+  cursor: grabbing;
+}
+
+
+
+.kanban-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.kanban-card h4 {
+  color: #eeeeF5;
+  font-size: 14px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.kanban-project {
+  margin-top: 6px;
+  color: #858590;
+  font-size: 12px;
+}
+
+.kanban-delete {
+  padding: 5px 8px;
+  color: #e58b8b;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.kanban-delete:hover {
+  color: #ffaaaa;
+}
+
+.kanban-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.kanban-move-button {
+  padding: 7px 11px;
+  color: white;
+  background: #7658ed;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.2s;
+}
+
+.kanban-move-button:hover {
+  background: #6345d7;
+}
+
+.kanban-move-button.secondary {
+  color: #d0c7f5;
+  background: #343044;
+}
+
+.kanban-move-button.secondary:hover {
+  background: #443b5e;
+}
+
+.kanban-empty {
+  padding: 20px 8px;
+  color: #777783;
+  text-align: center;
+  font-size: 12px;
+}
+
+
+@media (max-width: 900px) {
+  .kanban-board {
+    grid-template-columns: 1fr;
+  }
+
+  .kanban-column {
+    min-height: auto;
+  }
+}
+
 
 /* Filtros de tarefas */
 

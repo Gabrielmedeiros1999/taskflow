@@ -7,6 +7,18 @@ import Header from './components/Header.vue';
 import StatCard from './components/StatCard.vue';
 import TaskList from './components/TaskList.vue';
 import TaskFilters from './components/TaskFilters.vue';
+import KanbanBoard from './components/KanbanBoard.vue';
+
+
+function alterarStatus(id, novoStatus) {
+  const tarefa = tarefas.value.find(
+    tarefa => tarefa.id === id
+  );
+
+  if (tarefa) {
+    tarefa.status = novoStatus;
+  }
+}
 
 // Lista reativa de tarefas
 const tarefas = ref([
@@ -50,6 +62,7 @@ const busca = ref('');
 const filtroStatus = ref('Todos');
 const filtroPrioridade = ref('Todas');
 const ordenacao = ref('padrao');
+
 
 // Cadastrar tarefa
 function adicionarTarefa() {
@@ -286,10 +299,10 @@ const estatisticas = computed(() => {
       />
 
       <!-- Lista de tarefas -->
-      <TaskList
+    <KanbanBoard
         :tarefas="tarefasFiltradas"
         @delete-task="excluirTarefa"
-        @toggle-task="alternarStatus"
+        @change-status="alterarStatus"
       />
 
     </main>
