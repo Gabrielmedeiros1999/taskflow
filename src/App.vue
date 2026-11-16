@@ -5,83 +5,54 @@ import { ref, computed } from 'vue';
 import Sidebar from './components/Sidebar.vue';
 import Header from './components/Header.vue';
 import StatCard from './components/StatCard.vue';
-import TaskList from './components/TaskList.vue';
 import TaskFilters from './components/TaskFilters.vue';
 import KanbanBoard from './components/KanbanBoard.vue';
 
+import { useTaskStore } from './stores/taskStore';
 
-function alterarStatus(id, novoStatus) {
-  const tarefa = tarefas.value.find(
-    tarefa => tarefa.id === id
-  );
+// Conectar ao Pinia
+const taskStore = useTaskStore();
 
-  if (tarefa) {
-    tarefa.status = novoStatus;
+// Salvar automaticamente as alterações no LocalStorage
+taskStore.$subscribe((mutation, state) => {
+  try {
+    localStorage.setItem(
+      'taskflow-tarefas',
+      JSON.stringify(state.tarefas)
+    );
+  } catch (erro) {
+    console.error('Erro ao salvar tarefas:', erro);
   }
-}
+}, {
+  detached: true
+});
 
 // Lista reativa de tarefas
-const tarefas = ref([
-  {
-    id: 1,
-    titulo: "Estudar fundamentos do Vue.js",
-    projeto: "Estudos",
-    prioridade: "Alta",
-    status: "Em andamento"
-  },
-  {
-    id: 2,
-    titulo: "Organizar tarefas da semana",
-    projeto: "Pessoal",
-    prioridade: "Média",
-    status: "Pendente"
-  },
-  {
-    id: 3,
-    titulo: "Finalizar documentação",
-    projeto: "TaskFlow",
-    prioridade: "Baixa",
-    status: "Concluída"
-  },
-  {
-    id: 4,
-    titulo: "Praticar JavaScript",
-    projeto: "Estudos",
-    prioridade: "Alta",
-    status: "Pendente"
-  }
-]);
+const tarefas = computed(() => taskStore.tarefas);
 
 // Dados do formulário
 const novoTitulo = ref('');
 const novoProjeto = ref('');
 const novaPrioridade = ref('Média');
 
-//filtros
+// Filtros
 const busca = ref('');
 const filtroStatus = ref('Todos');
 const filtroPrioridade = ref('Todas');
 const ordenacao = ref('padrao');
 
-
 // Cadastrar tarefa
 function adicionarTarefa() {
-
   if (!novoTitulo.value.trim()) {
     return;
   }
 
-  const novaTarefa = {
-    id: Date.now(),
-    titulo: novoTitulo.value.trim(),
-    projeto: novoProjeto.value.trim() || 'Geral',
-    prioridade: novaPrioridade.value,
-    status: 'Pendente'
-  };
+  taskStore.adicionarTarefa(
+    novoTitulo.value,
+    novoProjeto.value,
+    novaPrioridade.value
+  );
 
-  tarefas.value.unshift(novaTarefa);
-
-  // Limpar formulário
   novoTitulo.value = '';
   novoProjeto.value = '';
   novaPrioridade.value = 'Média';
@@ -89,14 +60,16 @@ function adicionarTarefa() {
 
 // Excluir tarefa
 function excluirTarefa(id) {
-  tarefas.value = tarefas.value.filter(
-    tarefa => tarefa.id !== id
-  );
+  taskStore.excluirTarefa(id);
 }
 
-// Alternar status da tarefa
-function alternarStatus(id) {
+// Alterar status da tarefa pelo Kanban
+function alterarStatus(id, novoStatus) {
+  taskStore.alterarStatus(id, novoStatus);
+}
 
+// Alternar entre concluída e pendente
+function alternarStatus(id) {
   const tarefa = tarefas.value.find(
     tarefa => tarefa.id === id
   );
@@ -105,13 +78,14 @@ function alternarStatus(id) {
     return;
   }
 
-  if (tarefa.status === 'Concluída') {
-    tarefa.status = 'Pendente';
-  } else {
-    tarefa.status = 'Concluída';
-  }
+  const novoStatus = tarefa.status === 'Concluída'
+    ? 'Pendente'
+    : 'Concluída';
+
+  taskStore.alterarStatus(id, novoStatus);
 }
 
+// Filtrar e ordenar tarefas
 const tarefasFiltradas = computed(() => {
   let resultado = tarefas.value;
 
@@ -156,7 +130,6 @@ const tarefasFiltradas = computed(() => {
 
 // Estatísticas calculadas automaticamente
 const estatisticas = computed(() => {
-
   return [
     {
       id: 1,
@@ -189,7 +162,6 @@ const estatisticas = computed(() => {
       icone: '!'
     }
   ];
-
 });
 </script>
 
@@ -203,7 +175,6 @@ const estatisticas = computed(() => {
       <Header />
 
       <section class="welcome">
-
         <div>
           <h2>Olá, Gabriel! 👋</h2>
 
@@ -215,12 +186,10 @@ const estatisticas = computed(() => {
         <span class="welcome-date">
           Visão geral
         </span>
-
       </section>
 
       <!-- Estatísticas -->
       <section class="stats-grid">
-
         <StatCard
           v-for="item in estatisticas"
           :key="item.id"
@@ -228,7 +197,6 @@ const estatisticas = computed(() => {
           :valor="item.valor"
           :icone="item.icone"
         />
-
       </section>
 
       <!-- Formulário de cadastro -->
@@ -287,10 +255,9 @@ const estatisticas = computed(() => {
           </button>
 
         </form>
-
       </section>
 
-      <!-- Filtro de tarefas -->
+      <!-- Filtros de tarefas -->
       <TaskFilters
         v-model:busca="busca"
         v-model:status="filtroStatus"
@@ -298,14 +265,13 @@ const estatisticas = computed(() => {
         v-model:ordenacao="ordenacao"
       />
 
-      <!-- Lista de tarefas -->
-    <KanbanBoard
+      <!-- Quadro Kanban -->
+      <KanbanBoard
         :tarefas="tarefasFiltradas"
         @delete-task="excluirTarefa"
         @change-status="alterarStatus"
       />
 
     </main>
-
   </div>
 </template>
