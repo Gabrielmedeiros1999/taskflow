@@ -1000,4 +1000,137 @@ body {
   .welcome-date {
     display: none;
   }
+
+
+/* Melhorias de responsividade */
+
+/* Tablet */
+@media (max-width: 1000px) {
+  .main-content {
+    padding: 24px 20px;
+  }
+
+  .stats-grid {
+    gap: 12px;
+  }
+
+  .stat-card {
+    padding: 18px;
+  }
+}
+
+/* Celular */
+@media (max-width: 650px) {
+  .sidebar {
+    width: 65px;
+    min-width: 65px;
+    padding: 22px 8px;
+  }
+
+  .logo {
+    justify-content: center;
+    margin-bottom: 35px;
+  }
+
+  .logo h2,
+  .menu-label {
+    display: none;
+  }
+
+  /* Mantém todos os itens do menu visíveis */
+  .menu-item,
+  .menu-item:not(.active) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 12px 0;
+    font-size: 0;
+  }
+
+  .menu-item span {
+    font-size: 18px;
+  }
+
+  .menu {
+    width: 100%;
+  }
+
+  .sidebar-footer {
+    justify-content: center;
+  }
+
+  .sidebar-footer > div:last-child {
+    display: none;
+  }
+
+  .main-content {
+    min-width: 0;
+    padding: 20px 12px;
+  }
+
+  .topbar {
+    gap: 10px;
+    padding-bottom: 18px;
+  }
+
+  .topbar h1 {
+    font-size: 20px;
+  }
+
+  .welcome {
+    gap: 12px;
+    margin: 25px 0 20px;
+  }
+
+  .welcome h2 {
+    font-size: 18px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .stat-card {
+    padding: 14px;
+  }
+
+  .stat-value {
+    font-size: 24px;
+  }
+
+  .task-form {
+    padding: 14px;
+  }
+
+  .dashboard-panel {
+    padding: 16px;
+  }
+}
+
+/* Celulares estreitos */
+@media (max-width: 400px) {
+  .sidebar {
+    width: 54px;
+    min-width: 54px;
+    padding: 18px 6px;
+  }
+
+  .main-content {
+    padding: 16px 10px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card {
+    padding: 14px;
+  }
+
+  .kanban-column {
+    padding: 12px;
+  }
+}
+
 }
