@@ -1133,4 +1133,72 @@ body {
   }
 }
 
+
+/* Acessibilidade e interação */
+
+/* Destaque ao navegar usando a tecla Tab */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid #a995ff;
+  outline-offset: 3px;
+}
+
+/* Botões do Kanban mais confortáveis para toque */
+.kanban-move-button {
+  min-height: 38px;
+  padding: 9px 13px;
+}
+
+.kanban-delete {
+  min-height: 36px;
+  padding: 7px 10px;
+}
+
+/* Indicação visual durante o arraste */
+.kanban-card.is-dragging {
+  opacity: 0.45;
+  border-color: #a995ff;
+}
+
+/* Ajustes do Kanban em celulares */
+@media (max-width: 650px) {
+  .kanban-board {
+    gap: 12px;
+  }
+
+  .kanban-column {
+    padding: 13px;
+  }
+
+  .kanban-card {
+    padding: 13px;
+  }
+
+  .kanban-card-actions {
+    gap: 8px;
+  }
+
+  .kanban-card-actions button {
+    flex: 1;
+  }
+
+  .kanban-delete {
+    font-size: 12px;
+  }
+}
+
+/* Respeita usuários que preferem menos animações */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+
 }

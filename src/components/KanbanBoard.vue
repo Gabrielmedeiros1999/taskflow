@@ -1,5 +1,6 @@
+
 <script setup>
-import { computed, ref  } from 'vue';
+import { computed, ref } from 'vue';
 
 const props = defineProps({
   tarefas: {
@@ -35,6 +36,7 @@ const tarefasPorStatus = computed(() => {
   };
 });
 
+// Identifica a tarefa que está sendo arrastada
 const tarefaArrastadaId = ref(null);
 
 function iniciarArraste(id) {
@@ -57,7 +59,10 @@ function finalizarArraste() {
 </script>
 
 <template>
-  <section class="kanban-section">
+  <section
+    class="kanban-section"
+    aria-label="Quadro de tarefas"
+  >
     <div class="kanban-header">
       <div>
         <h2>Quadro de tarefas</h2>
@@ -66,30 +71,39 @@ function finalizarArraste() {
     </div>
 
     <div class="kanban-board">
-     <div
+      <div
         v-for="coluna in colunas"
         :key="coluna.status"
         class="kanban-column"
+        role="region"
+        :aria-label="`Coluna ${coluna.titulo}`"
         @dragover.prevent
         @drop="soltarTarefa(coluna.status)"
-        >
+      >
         <div class="kanban-column-header">
           <h3>{{ coluna.titulo }}</h3>
 
-          <span class="kanban-count">
+          <span
+            class="kanban-count"
+            :aria-label="`${tarefasPorStatus[coluna.status].length} tarefas`"
+          >
             {{ tarefasPorStatus[coluna.status].length }}
           </span>
         </div>
 
-        <div class="kanban-cards">
+        <div class="kanban-cards" role="list">
           <article
-                v-for="tarefa in tarefasPorStatus[coluna.status]"
-                :key="tarefa.id"
-                class="kanban-card"
-                draggable="true"
-                @dragstart="iniciarArraste(tarefa.id)"
-                @dragend="finalizarArraste"
-                >
+            v-for="tarefa in tarefasPorStatus[coluna.status]"
+            :key="tarefa.id"
+            class="kanban-card"
+            :class="{
+              'is-dragging': tarefaArrastadaId === tarefa.id
+            }"
+            role="listitem"
+            draggable="true"
+            @dragstart="iniciarArraste(tarefa.id)"
+            @dragend="finalizarArraste"
+          >
             <div class="kanban-card-top">
               <span
                 class="priority"
@@ -99,7 +113,9 @@ function finalizarArraste() {
               </span>
 
               <button
+                type="button"
                 class="kanban-delete"
+                :aria-label="`Excluir tarefa ${tarefa.titulo}`"
                 @click="emit('delete-task', tarefa.id)"
               >
                 Excluir
@@ -115,6 +131,7 @@ function finalizarArraste() {
             <div class="kanban-card-actions">
               <button
                 v-if="tarefa.status === 'Em andamento'"
+                type="button"
                 class="kanban-move-button secondary"
                 @click="emit('change-status', tarefa.id, 'Pendente')"
               >
@@ -123,6 +140,7 @@ function finalizarArraste() {
 
               <button
                 v-if="tarefa.status === 'Concluída'"
+                type="button"
                 class="kanban-move-button secondary"
                 @click="emit('change-status', tarefa.id, 'Em andamento')"
               >
@@ -131,6 +149,7 @@ function finalizarArraste() {
 
               <button
                 v-if="tarefa.status === 'Pendente'"
+                type="button"
                 class="kanban-move-button"
                 @click="emit('change-status', tarefa.id, 'Em andamento')"
               >
@@ -139,6 +158,7 @@ function finalizarArraste() {
 
               <button
                 v-if="tarefa.status === 'Em andamento'"
+                type="button"
                 class="kanban-move-button"
                 @click="emit('change-status', tarefa.id, 'Concluída')"
               >
@@ -150,6 +170,7 @@ function finalizarArraste() {
           <p
             v-if="tarefasPorStatus[coluna.status].length === 0"
             class="kanban-empty"
+            role="status"
           >
             Nenhuma tarefa nesta coluna.
           </p>
