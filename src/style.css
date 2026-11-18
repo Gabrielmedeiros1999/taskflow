@@ -649,6 +649,183 @@ body {
 }
 
 
+/* Dashboard */
+
+.dashboard-section {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.dashboard-header {
+  margin-bottom: 20px;
+}
+
+.dashboard-header h2 {
+  color: #eeeeF5;
+  font-size: 21px;
+  margin-bottom: 6px;
+}
+
+.dashboard-header p {
+  color: #858590;
+  font-size: 14px;
+}
+
+.dashboard-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.dashboard-card {
+  padding: 20px;
+  background: #191a20;
+  border: 1px solid #292a32;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.dashboard-card span {
+  color: #aaaab7;
+  font-size: 13px;
+}
+
+.dashboard-card strong {
+  color: #eeeeF5;
+  font-size: 30px;
+}
+
+.dashboard-card small {
+  color: #858590;
+  font-size: 12px;
+}
+
+.dashboard-panel {
+  padding: 22px;
+  background: #191a20;
+  border: 1px solid #292a32;
+  border-radius: 12px;
+  margin-bottom: 18px;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.dashboard-panel h3 {
+  color: #eeeeF5;
+  font-size: 15px;
+  margin-bottom: 18px;
+}
+
+.panel-header h3 {
+  margin-bottom: 0;
+}
+
+.panel-header strong {
+  color: #a995ff;
+  font-size: 18px;
+}
+
+.progress-track,
+.chart-track {
+  width: 100%;
+  height: 10px;
+  overflow: hidden;
+  background: #30313a;
+  border-radius: 20px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #7658ed;
+  border-radius: 20px;
+  transition: width 0.3s ease;
+}
+
+.dashboard-panel > p {
+  color: #858590;
+  font-size: 12px;
+  margin-top: 12px;
+}
+
+.dashboard-charts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.chart-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.chart-item {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.chart-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #c9c9d3;
+  font-size: 13px;
+}
+
+.chart-label span {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.chart-label i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+
+.chart-label strong {
+  color: #eeeeF5;
+}
+
+.chart-bar {
+  height: 100%;
+  border-radius: 20px;
+  transition: width 0.3s ease;
+}
+
+.dashboard-empty {
+  padding: 20px;
+  color: #858590;
+  text-align: center;
+  background: #191a20;
+  border: 1px dashed #343540;
+  border-radius: 12px;
+  margin-top: 18px;
+}
+
+@media (max-width: 900px) {
+  .dashboard-charts {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Filtros de tarefas */
 
 .filters-section {

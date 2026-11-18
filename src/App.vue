@@ -7,6 +7,7 @@ import Header from './components/Header.vue';
 import StatCard from './components/StatCard.vue';
 import TaskFilters from './components/TaskFilters.vue';
 import KanbanBoard from './components/KanbanBoard.vue';
+import Dashboard from './components/Dashboard.vue';
 
 import { useTaskStore } from './stores/taskStore';
 
@@ -198,6 +199,9 @@ const estatisticas = computed(() => {
           :icone="item.icone"
         />
       </section>
+
+       <!-- Dashboard -->
+      <Dashboard :tarefas="tarefas" />
 
       <!-- Formulário de cadastro -->
       <section class="form-section">
