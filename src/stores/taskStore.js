@@ -48,7 +48,7 @@ function carregarTarefas() {
     console.error('Erro ao carregar tarefas:', erro);
   }
 
-  return tarefasIniciais;
+  return tarefasIniciais.map(tarefa => ({ ...tarefa }));
 }
 
 export const useTaskStore = defineStore('taskStore', {
