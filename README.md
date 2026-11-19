@@ -13,6 +13,20 @@ O TaskFlow permite organizar atividades, acompanhar seu progresso e visualizar i
 - **Persistência local:** manter as tarefas salvas no navegador utilizando LocalStorage.
 - **Interface responsiva:** utilizar a aplicação em computadores e dispositivos móveis.
 
+## Screenshots
+
+### Dashboard
+![Dashboard](screenshots/dashboard.png)
+
+### Quadro Kanban
+![Kanban](screenshots/kanban.png)
+
+### Gerenciamento de tarefas
+![Tarefas](screenshots/tarefas.png)
+
+### Versão mobile
+![Mobile](screenshots/mobile.png)
+
 ## Tecnologias utilizadas
 
 - JavaScript
