@@ -69,6 +69,18 @@ export const useTaskStore = defineStore('taskStore', {
       this.tarefas.unshift(novaTarefa);
     },
 
+    editarTarefa(id, titulo, projeto, prioridade) {
+      const tarefa = this.tarefas.find(
+        tarefa => tarefa.id === id
+      );
+
+      if (tarefa) {
+        tarefa.titulo = titulo.trim();
+        tarefa.projeto = projeto.trim() || 'Geral';
+        tarefa.prioridade = prioridade;
+      }
+    },
+
     excluirTarefa(id) {
       this.tarefas = this.tarefas.filter(
         tarefa => tarefa.id !== id
