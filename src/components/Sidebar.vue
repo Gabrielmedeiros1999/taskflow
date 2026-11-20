@@ -1,4 +1,3 @@
-
 <template>
   <aside class="sidebar">
 
@@ -11,25 +10,41 @@
       <span class="menu-label">MENU PRINCIPAL</span>
 
       <nav class="menu">
-        <a href="#" class="menu-item active">
+        <RouterLink
+          to="/"
+          class="menu-item"
+          exact-active-class="active"
+        >
           <span>▦</span>
           Dashboard
-        </a>
+        </RouterLink>
 
-        <a href="#" class="menu-item">
+        <RouterLink
+          to="/tarefas"
+          class="menu-item"
+          exact-active-class="active"
+        >
           <span>☷</span>
           Minhas tarefas
-        </a>
+        </RouterLink>
 
-        <a href="#" class="menu-item">
+        <RouterLink
+          to="/projetos"
+          class="menu-item"
+          exact-active-class="active"
+        >
           <span>▤</span>
           Projetos
-        </a>
+        </RouterLink>
 
-        <a href="#" class="menu-item">
+        <RouterLink
+          to="/calendario"
+          class="menu-item"
+          exact-active-class="active"
+        >
           <span>▦</span>
           Calendário
-        </a>
+        </RouterLink>
       </nav>
     </div>
 
