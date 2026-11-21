@@ -1,4 +1,3 @@
-
 <script setup>
 import { ref, computed } from 'vue';
 import { useTaskStore } from '../stores/taskStore';
@@ -10,6 +9,7 @@ const filtroStatus = ref('Todos');
 const filtroPrioridade = ref('Todas');
 const ordenacao = ref('padrao');
 
+const data = ref('');
 const titulo = ref('');
 const projeto = ref('');
 const prioridade = ref('Média');
@@ -64,13 +64,15 @@ function salvarTarefa() {
       tarefaEditando.value,
       titulo.value,
       projeto.value,
-      prioridade.value
+      prioridade.value,
+      data.value
     );
   } else {
     taskStore.adicionarTarefa(
       titulo.value,
       projeto.value,
-      prioridade.value
+      prioridade.value,
+      data.value
     );
   }
 
@@ -82,6 +84,7 @@ function prepararEdicao(tarefa) {
   titulo.value = tarefa.titulo;
   projeto.value = tarefa.projeto;
   prioridade.value = tarefa.prioridade;
+  data.value = tarefa.data || '';
 
   window.scrollTo({
     top: 0,
@@ -98,6 +101,7 @@ function limparFormulario() {
   projeto.value = '';
   prioridade.value = 'Média';
   tarefaEditando.value = null;
+  data.value = '';
 }
 
 function excluirTarefa(id) {
@@ -168,6 +172,15 @@ function alterarStatus(id, novoStatus) {
             <option value="Média">Média</option>
             <option value="Alta">Alta</option>
           </select>
+        </div>
+
+        <div class="tasks-field">
+          <label for="task-date">Data de vencimento</label>
+          <input
+            id="task-date"
+            v-model="data"
+            type="date"
+          />
         </div>
 
         <div class="tasks-form-actions">
@@ -339,7 +352,7 @@ function alterarStatus(id, novoStatus) {
 
 .tasks-form {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
 }
 

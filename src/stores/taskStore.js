@@ -57,19 +57,20 @@ export const useTaskStore = defineStore('taskStore', {
   }),
 
   actions: {
-    adicionarTarefa(titulo, projeto, prioridade) {
-      const novaTarefa = {
-        id: Date.now(),
-        titulo: titulo.trim(),
-        projeto: projeto.trim() || 'Geral',
-        prioridade,
-        status: 'Pendente'
-      };
+        adicionarTarefa(titulo, projeto, prioridade, data = '') {
+        const novaTarefa = {
+          id: Date.now(),
+          titulo: titulo.trim(),
+          projeto: projeto.trim() || 'Geral',
+          prioridade,
+          status: 'Pendente',
+          data
+        };
 
-      this.tarefas.unshift(novaTarefa);
-    },
+        this.tarefas.unshift(novaTarefa);
+      },
 
-    editarTarefa(id, titulo, projeto, prioridade) {
+    editarTarefa(id, titulo, projeto, prioridade, data) {
       const tarefa = this.tarefas.find(
         tarefa => tarefa.id === id
       );
@@ -78,6 +79,7 @@ export const useTaskStore = defineStore('taskStore', {
         tarefa.titulo = titulo.trim();
         tarefa.projeto = projeto.trim() || 'Geral';
         tarefa.prioridade = prioridade;
+        tarefa.data = data;
       }
     },
 
