@@ -1,8 +1,10 @@
 <script setup>
 import { ref, computed } from 'vue';
 import { useTaskStore } from '../stores/taskStore';
+import { useToast } from '../composables/useToast';
 
 const taskStore = useTaskStore();
+const { mostrarToast } = useToast();
 
 const busca = ref('');
 const filtroStatus = ref('Todos');
@@ -56,6 +58,7 @@ const tarefasFiltradas = computed(() => {
 
 function salvarTarefa() {
   if (!titulo.value.trim()) {
+    mostrarToast('Informe o nome da tarefa.', 'erro');
     return;
   }
 
@@ -67,6 +70,8 @@ function salvarTarefa() {
       prioridade.value,
       data.value
     );
+
+    mostrarToast('Tarefa atualizada com sucesso!');
   } else {
     taskStore.adicionarTarefa(
       titulo.value,
@@ -74,10 +79,13 @@ function salvarTarefa() {
       prioridade.value,
       data.value
     );
+
+    mostrarToast('Tarefa criada com sucesso!');
   }
 
   limparFormulario();
 }
+
 
 function prepararEdicao(tarefa) {
   tarefaEditando.value = tarefa.id;
@@ -107,6 +115,8 @@ function limparFormulario() {
 function excluirTarefa(id) {
   if (confirm('Deseja realmente excluir esta tarefa?')) {
     taskStore.excluirTarefa(id);
+
+    mostrarToast('Tarefa excluída com sucesso!');
   }
 }
 

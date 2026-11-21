@@ -3,6 +3,10 @@ import Sidebar from './components/Sidebar.vue';
 import Header from './components/Header.vue';
 
 import { useTaskStore } from './stores/taskStore';
+import Toast from './components/Toast.vue';
+import { useToast } from './composables/useToast';
+
+const { mensagem, tipo, visivel } = useToast();
 
 const taskStore = useTaskStore();
 
@@ -29,6 +33,11 @@ taskStore.$subscribe((mutation, state) => {
       <Header />
 
       <RouterView />
+      <Toast
+        v-if="visivel"
+        :mensagem="mensagem"
+        :tipo="tipo"
+      />
     </main>
   </div>
 </template>
