@@ -122,6 +122,21 @@ function excluirTarefa(id) {
 
 function alterarStatus(id, novoStatus) {
   taskStore.alterarStatus(id, novoStatus);
+
+  if (novoStatus === 'Concluída') {
+    mostrarToast('Tarefa concluída com sucesso!');
+  } else if (novoStatus === 'Em andamento') {
+    mostrarToast('Tarefa movida para Em andamento!');
+  } else {
+    mostrarToast('Tarefa reaberta com sucesso!');
+  }
+}
+
+function limparFiltros() {
+  busca.value = '';
+  filtroStatus.value = 'Todos';
+  filtroPrioridade.value = 'Todas';
+  ordenacao.value = 'padrao';
 }
 </script>
 
@@ -301,8 +316,29 @@ function alterarStatus(id, novoStatus) {
       </div>
 
       <div v-else class="tasks-empty">
-        <h3>Nenhuma tarefa encontrada</h3>
-        <p>Tente modificar os filtros ou cadastrar uma nova tarefa.</p>
+        <template v-if="taskStore.tarefas.length === 0">
+          <h3>Você ainda não possui tarefas</h3>
+          <p>
+            Comece organizando sua rotina. Cadastre sua primeira tarefa
+            usando o formulário acima.
+          </p>
+        </template>
+
+        <template v-else>
+          <h3>Nenhuma tarefa encontrada</h3>
+          <p>
+            Não encontramos tarefas com os filtros selecionados.
+            Experimente modificar sua pesquisa.
+          </p>
+          <button
+            v-if="taskStore.tarefas.length > 0"
+            type="button"
+            class="tasks-clear-filters"
+            @click="limparFiltros"
+          >
+            Limpar filtros
+          </button>
+        </template>
       </div>
 
     </section>
@@ -549,5 +585,20 @@ function alterarStatus(id, novoStatus) {
   .task-card-details {
     width: 100%;
   }
+}
+
+.tasks-clear-filters {
+  margin-top: 12px;
+  padding: 10px 16px;
+  border: 1px solid #7553c8;
+  border-radius: 8px;
+  background: transparent;
+  color: #c5aaff;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.tasks-clear-filters:hover {
+  background: #29233e;
 }
 </style>
