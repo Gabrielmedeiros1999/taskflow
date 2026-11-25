@@ -9,9 +9,6 @@ import Dashboard from '../components/Dashboard.vue';
 
 import { useTaskStore } from '../stores/taskStore';
 
-import { useToast } from '../composables/useToast';
-
-const { mostrarToast } = useToast();
 
 const taskStore = useTaskStore();
 
@@ -26,10 +23,6 @@ const filtroStatus = ref('Todos');
 const filtroPrioridade = ref('Todas');
 const ordenacao = ref('padrao');
 
-
-function testarNotificacao() {
-  mostrarToast('Notificação funcionando!', 'sucesso');
-}
 
 function adicionarTarefa() {
   if (!novoTitulo.value.trim()) {

@@ -45,6 +45,14 @@
           <span>▦</span>
           Calendário
         </RouterLink>
+        <RouterLink
+          to="/configuracoes"
+          class="menu-item"
+          exact-active-class="active"
+        >
+          <span>⚙</span>
+          Configurações
+        </RouterLink>
       </nav>
     </div>
 

@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
+import SettingsView from '../views/SettingsView.vue';
 import DashboardView from '../views/DashboardView.vue';
 import TasksView from '../views/TasksView.vue';
 import ProjectsView from '../views/ProjectsView.vue';
@@ -25,6 +26,11 @@ const routes = [
     path: '/calendario',
     name: 'calendario',
     component: CalendarView
+  },
+  {
+    path: '/configuracoes',
+    name: 'configuracoes',
+    component: SettingsView
   }
 ];
 
