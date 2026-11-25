@@ -1,6 +1,22 @@
 
 <script setup>
 import { ref, watch } from 'vue';
+import { useTaskStore } from '../stores/taskStore';
+import { useToast } from '../composables/useToast';
+
+const taskStore = useTaskStore();
+const { mostrarToast } = useToast();
+
+function confirmarLimpeza() {
+  const confirmado = confirm(
+    'Tem certeza que deseja excluir todas as tarefas? Essa ação não pode ser desfeita.'
+  );
+
+  if (confirmado) {
+    taskStore.limparTarefas();
+    mostrarToast('Todas as tarefas foram excluídas!');
+  }
+}
 
 const ordenacaoPadrao = ref(
   localStorage.getItem('taskflow-ordenacao') || 'padrao'
@@ -39,6 +55,22 @@ watch(ordenacaoPadrao, (novaOrdenacao) => {
           ao abrir a página Minhas tarefas.
         </p>
       </div>
+    </div>
+    <div class="settings-card settings-danger">
+        <h2>Zona de perigo</h2>
+
+        <p>
+            Exclua todas as tarefas cadastradas no TaskFlow.
+            Essa ação não pode ser desfeita.
+        </p>
+
+        <button
+            type="button"
+            class="settings-danger-button"
+            @click="confirmarLimpeza"
+        >
+            Limpar todas as tarefas
+        </button>
     </div>
   </section>
 </template>
@@ -97,5 +129,29 @@ watch(ordenacaoPadrao, (novaOrdenacao) => {
 .settings-option p {
   color: #9999a5;
   font-size: 13px;
+}
+
+.settings-danger {
+  margin-top: 20px;
+  border-color: #48262b;
+}
+
+.settings-danger p {
+  margin-bottom: 16px;
+  color: #a5a1b5;
+  font-size: 14px;
+}
+
+.settings-danger-button {
+  padding: 10px 16px;
+  border: 1px solid #7f2935;
+  border-radius: 8px;
+  background: #48262b;
+  color: #ffabb3;
+  cursor: pointer;
+}
+
+.settings-danger-button:hover {
+  background: #5a2c33;
 }
 </style>

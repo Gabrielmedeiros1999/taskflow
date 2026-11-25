@@ -9,7 +9,9 @@ const { mostrarToast } = useToast();
 const busca = ref('');
 const filtroStatus = ref('Todos');
 const filtroPrioridade = ref('Todas');
-const ordenacao = ref('padrao');
+const ordenacao = ref(
+  localStorage.getItem('taskflow-ordenacao') || 'padrao'
+);
 
 const data = ref('');
 const titulo = ref('');
@@ -51,6 +53,10 @@ const tarefasFiltradas = computed(() => {
     resultado = [...resultado].sort(
       (a, b) => peso[b.prioridade] - peso[a.prioridade]
     );
+  }
+
+  if (ordenacao.value === 'recentes') {
+    resultado = [...resultado].reverse();
   }
 
   return resultado;

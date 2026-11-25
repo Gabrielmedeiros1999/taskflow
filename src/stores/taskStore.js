@@ -89,6 +89,10 @@ export const useTaskStore = defineStore('taskStore', {
       );
     },
 
+    limparTarefas() {
+      this.tarefas = [];
+    },
+
     alterarStatus(id, novoStatus) {
       const tarefa = this.tarefas.find(
         tarefa => tarefa.id === id
