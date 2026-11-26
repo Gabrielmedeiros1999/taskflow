@@ -74,7 +74,8 @@ describe('Task Store', () => {
       titulo: 'Estudar Vitest',
       projeto: 'TaskFlow',
       prioridade: 'Alta',
-      status: 'Pendente'
+      status: 'Pendente',
+      data: '',
     });
   });
 

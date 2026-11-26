@@ -1,60 +1,36 @@
 # TaskFlow — Gerenciador de Tarefas
 
-Uma aplicação web para organização e gerenciamento de tarefas, desenvolvida com Vue 3 e JavaScript.
+Aplicação web de gerenciamento de tarefas desenvolvida com Vue.js, com foco em organização, produtividade e experiência do usuário.
 
-O TaskFlow permite organizar atividades, acompanhar seu progresso e visualizar informações por meio de um painel com estatísticas.
+O TaskFlow permite organizar atividades, acompanhar o progresso de tarefas e visualizar informações importantes em um dashboard, utilizando armazenamento local para manter os dados no navegador.
 
 ## Funcionalidades
 
-- **Gerenciamento de tarefas:** criar, concluir, reabrir e excluir tarefas.
-- **Filtros e pesquisa:** localizar tarefas por título, status e prioridade.
-- **Organização Kanban:** visualizar e movimentar tarefas entre diferentes etapas.
-- **Dashboard:** acompanhar estatísticas, progresso e distribuição das tarefas.
-- **Persistência local:** manter as tarefas salvas no navegador utilizando LocalStorage.
-- **Interface responsiva:** utilizar a aplicação em computadores e dispositivos móveis.
-
-## Screenshots
-
-### Dashboard
-![Dashboard](screenshots/dashboard.png)
-
-### Quadro Kanban
-![Kanban](screenshots/kanban.png)
-
-### Gerenciamento de tarefas
-![Tarefas](screenshots/tarefas.png)
-
-### Versão mobile
-![Mobile](screenshots/mobile.png)
+- **Dashboard:** visualização geral das tarefas e indicadores de progresso.
+- **Gerenciamento de tarefas:** criação, edição, exclusão e alteração de status.
+- **Organização por projetos:** agrupamento de tarefas por projeto.
+- **Visualização Kanban:** organização das tarefas por status, com suporte a movimentação entre colunas.
+- **Calendário:** visualização de tarefas com datas de entrega e navegação entre meses.
+- **Busca e filtros:** pesquisa por tarefas e filtragem por status e prioridade.
+- **Ordenação:** organização das tarefas por prioridade.
+- **Configurações:** personalização da ordenação padrão e opção para limpar todas as tarefas.
+- **Notificações:** mensagens de confirmação para ações realizadas.
+- **Persistência local:** armazenamento das tarefas e preferências utilizando LocalStorage.
+- **Interface responsiva:** adaptação da interface para diferentes tamanhos de tela.
 
 ## Tecnologias utilizadas
 
+- Vue.js 3
 - JavaScript
-- Vue 3
 - Vite
 - Pinia
 - Vue Router
-- CSS
-- LocalStorage
 - Vitest
+- HTML5
+- CSS3
+- LocalStorage
 
-## Testes
-
-O projeto utiliza Vitest para realizar testes automatizados das funcionalidades da store de tarefas.
-
-Para executar os testes:
-
-```bash
-npm run test
-```
-
-Para executar os testes em modo de observação:
-
-```bash
-npm run test:watch
-```
-
-## Como executar o projeto
+## Executando o projeto
 
 ### Pré-requisitos
 
@@ -63,33 +39,43 @@ npm run test:watch
 
 ### Instalação
 
-1. Clone o repositório:
+Clone o repositório:
 
 ```bash
 git clone https://github.com/Gabrielmedeiros1999/taskflow.git
 ```
 
-2. Entre na pasta do projeto:
+Entre na pasta do projeto:
 
 ```bash
 cd taskflow
 ```
 
-3. Instale as dependências:
+Instale as dependências:
 
 ```bash
 npm install
 ```
 
-4. Inicie o servidor de desenvolvimento:
+Inicie o servidor de desenvolvimento:
 
 ```bash
 npm run dev
 ```
 
-5. Acesse o endereço disponibilizado pelo Vite no terminal.
+O Vite exibirá o endereço local para acessar a aplicação no navegador.
 
-## Build para produção
+## Testes
+
+Para executar os testes automatizados:
+
+```bash
+npm run test
+```
+
+Os testes utilizam Vitest para verificar funcionalidades do gerenciamento de tarefas.
+
+## Build de produção
 
 Para gerar a versão de produção:
 
@@ -97,32 +83,30 @@ Para gerar a versão de produção:
 npm run build
 ```
 
-Para visualizar a versão gerada:
+Os arquivos compilados serão gerados na pasta `dist`.
+
+Para visualizar a versão compilada localmente:
 
 ```bash
 npm run preview
 ```
 
-## Estrutura do projeto
+## Armazenamento de dados
 
-```text
-src/
-├── components/
-├── stores/
-│   ├── taskStore.js
-│   └── taskStore.test.js
-├── views/
-├── App.vue
-├── main.js
-└── style.css
-```
+O TaskFlow utiliza LocalStorage para armazenar tarefas e preferências do usuário diretamente no navegador.
 
-## Observações
+Por ser uma aplicação frontend, não utiliza banco de dados ou backend próprio. Os dados ficam vinculados ao navegador utilizado.
 
-O TaskFlow é um projeto frontend. Os dados das tarefas são armazenados localmente no navegador por meio do LocalStorage. Portanto, não existe sincronização entre diferentes dispositivos ou usuários.
+## Objetivo do projeto
+
+O TaskFlow foi desenvolvido como projeto de portfólio para praticar e consolidar conhecimentos em desenvolvimento frontend, componentização, gerenciamento de estado, navegação entre páginas, persistência de dados e testes automatizados.
 
 ## Autor
 
-Desenvolvido por **Gabriel Caldeira Medeiros**.
+**Gabriel Caldeira Medeiros**
 
-- GitHub: https://github.com/Gabrielmedeiros1999
+Estudante de Análise e Desenvolvimento de Sistemas — UniSenac Pelotas.
+
+[GitHub](https://github.com/Gabrielmedeiros1999)
+
+[Portfólio](https://portfolio-weld-omega-83.vercel.app/)
